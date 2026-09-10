@@ -1,0 +1,76 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { support } from '../data/site.js';
+
+// Prose is plain text between <p> tags — edit it like a document.
+// Both photos are set in src/data/site.js.
+---
+
+<BaseLayout title="Support Us" description="How to help Helping Hands: teach a class, or tell someone about us.">
+  <h1>Support Us</h1>
+
+  <p class="lede">
+    We do not take donations. The classes cost nothing to run beyond the time we
+    put into them, so there are two ways to help: teach, or tell someone.
+  </p>
+
+  <div class="split">
+    <div class="split-text">
+      <h2>Volunteer as an instructor</h2>
+
+      <p>
+        We are looking for people who know their subject and enjoy explaining it.
+        Teaching experience is welcome but not required — most of our instructors
+        started without any.
+      </p>
+
+      <p>
+        Sessions run an hour and fifteen minutes, twice a week, live on Zoom. You
+        choose the subject and a schedule that fits around your own work or
+        classes.
+      </p>
+
+      <p>
+        {/* TODO: name the subjects you actually need help with right now. */}
+        Tell us what you would like to teach and roughly when you are free, and
+        we will take it from there.
+      </p>
+
+      <p>
+        <a class="button-link" href="/contact/">Get in touch</a>
+      </p>
+    </div>
+
+    <div class="split-media">
+      <img src={support.image} alt={support.imageAlt} />
+    </div>
+  </div>
+
+  <div class="split">
+    <div class="split-text">
+      <h2>Spread the word</h2>
+
+      <p>
+        Most of our students arrive because somebody told them about us. Not
+        through advertising, and not because they went looking — someone
+        mentioned it.
+      </p>
+
+      <p>
+        If you know a family who could use a free math or science class, send
+        them here. If you teach, or run a school newsletter, or sit in a group
+        chat of parents, that is the version of support that reaches students we
+        would never find on our own.
+      </p>
+
+      <p>
+        It costs nothing, and it is the single most useful thing anyone does for
+        us.
+      </p>
+    </div>
+
+    <div class="split-media split-media--plain">
+      <img src={support.spreadImage} alt={support.spreadAlt} />
+    </div>
+  </div>
+</BaseLayout>

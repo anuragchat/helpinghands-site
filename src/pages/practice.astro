@@ -1,0 +1,146 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { GENERATORS } from '../lib/generators.js';
+---
+
+<BaseLayout
+  title="Practice"
+  description="Generate a free math practice worksheet with an answer key. Pick your topics and print it."
+>
+  <h1>Practice worksheets</h1>
+
+  <p class="lede">
+    Pick what you want to practise and generate a worksheet with an answer key.
+    Every sheet has a number — type the same number again to get the same sheet
+    back.
+  </p>
+
+  <div class="split">
+    <div class="split-text">
+      <form id="builder" class="builder">
+        <fieldset>
+          <legend>Topics</legend>
+          {GENERATORS.map((g, i) => (
+            <div class="topic">
+              <label class="topic-name">
+                <input type="checkbox" name="topic" value={g.id} checked={i < 2} />
+                <span>{g.label}</span>
+              </label>
+              <span class="topic-example">{g.example}</span>
+              <label class="topic-count">
+                <span class="visually-hidden">How many {g.label} problems</span>
+                <input type="number" name={`count-${g.id}`} value="6" min="1" max="30" />
+              </label>
+            </div>
+          ))}
+        </fieldset>
+
+        <label class="field field--inline">
+          <span>Worksheet number</span>
+          <input type="number" id="seed" min="1" max="99999" placeholder="random" />
+        </label>
+
+        <div class="builder-actions">
+          <button class="button" type="submit">Generate worksheet</button>
+          <button class="button button--quiet" type="button" id="print" hidden>Print</button>
+          <button class="button button--quiet" type="button" id="toggle-answers" hidden>
+            Show answers
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <aside>
+      <h2>How this works</h2>
+      <p>
+        Each problem is built backwards from its answer, so every solution is a
+        whole number rather than something like 3.7241.
+      </p>
+      <p>
+        This is the same generator we use to make the worksheets for class,
+        rewritten to run in your browser. Nothing is sent anywhere — the sheet is
+        made on your own computer.
+      </p>
+      <p>
+        The code is on
+        <a href="https://github.com/anuragchat/worksheet-generator" target="_blank" rel="noopener">GitHub</a>.
+      </p>
+    </aside>
+  </div>
+
+  <section id="sheet" class="sheet" hidden>
+    <header class="sheet-head">
+      <h2 id="sheet-title">Practice Worksheet</h2>
+      <p id="sheet-meta" class="sheet-meta"></p>
+      <p class="sheet-name">Name: <span class="sheet-rule"></span></p>
+    </header>
+
+    <ol id="problems" class="problems"></ol>
+
+    <div id="answers" class="answers" hidden>
+      <h2>Answer key</h2>
+      <ol id="answer-list"></ol>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  import { GENERATORS, buildProblems } from '../lib/generators.js';
+
+  const form = document.getElementById('builder');
+  const sheet = document.getElementById('sheet');
+  const problemList = document.getElementById('problems');
+  const answerBox = document.getElementById('answers');
+  const answerList = document.getElementById('answer-list');
+  const meta = document.getElementById('sheet-meta');
+  const seedInput = document.getElementById('seed');
+  const printButton = document.getElementById('print');
+  const answersButton = document.getElementById('toggle-answers');
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    const specs = [];
+    for (const box of form.querySelectorAll('input[name="topic"]:checked')) {
+      const count = Number(form.querySelector(`[name="count-${box.value}"]`).value) || 1;
+      specs.push({ id: box.value, count: Math.min(30, Math.max(1, count)) });
+    }
+
+    if (specs.length === 0) {
+      meta.textContent = 'Pick at least one topic first.';
+      sheet.hidden = false;
+      problemList.innerHTML = '';
+      return;
+    }
+
+    const seed = Number(seedInput.value) || Math.floor(Math.random() * 89999) + 10000;
+    seedInput.value = seed;
+
+    const problems = buildProblems(specs, seed);
+    const topics = specs
+      .map((s) => GENERATORS.find((g) => g.id === s.id).label)
+      .join(', ');
+
+    problemList.innerHTML = problems
+      .map((p) => `<li><span class="q">${p.question}</span><span class="work"></span></li>`)
+      .join('');
+
+    answerList.innerHTML = problems.map((p) => `<li>${p.answer}</li>`).join('');
+
+    meta.textContent = `${problems.length} problems · ${topics} · worksheet #${seed}`;
+
+    sheet.hidden = false;
+    answerBox.hidden = true;
+    answersButton.textContent = 'Show answers';
+    printButton.hidden = false;
+    answersButton.hidden = false;
+    sheet.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  answersButton.addEventListener('click', () => {
+    answerBox.hidden = !answerBox.hidden;
+    answersButton.textContent = answerBox.hidden ? 'Show answers' : 'Hide answers';
+  });
+
+  printButton.addEventListener('click', () => window.print());
+</script>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" role="img" aria-label="Photo placeholder">
+  <rect width="400" height="500" fill="#f2f5f4"/>
+  <g fill="none" stroke="#d7e1e0" stroke-width="1">
+    <path d="M0 24h400M0 48h400M0 72h400M0 96h400M0 120h400M0 144h400M0 168h400M0 192h400M0 216h400M0 240h400M0 264h400M0 288h400M0 312h400M0 336h400M0 360h400M0 384h400M0 408h400M0 432h400M0 456h400M0 480h400"/>
+    <path d="M24 0v500M48 0v500M72 0v500M96 0v500M120 0v500M144 0v500M168 0v500M192 0v500M216 0v500M240 0v500M264 0v500M288 0v500M312 0v500M336 0v500M360 0v500M384 0v500"/>
+  </g>
+  <text x="200" y="250" text-anchor="middle" font-family="Georgia, serif" font-size="20" fill="#4d6570">Add photo</text>
+  <text x="200" y="278" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="#7d8f96">public/team-anurag.jpg</text>
+</svg>

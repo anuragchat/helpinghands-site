@@ -1,0 +1,12 @@
+---
+import { site, contact } from '../data/site.js';
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="wrap">
+    <p>{site.name} is a volunteer-run nonprofit. Every class is free.</p>
+    <p><a href={`mailto:${contact.email}`}>{contact.email}</a></p>
+    <p>&copy; {year} {site.name}</p>
+  </div>
+</footer>

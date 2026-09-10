@@ -1,0 +1,87 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { story, testimonials } from '../data/site.js';
+
+// Prose is plain text between <p> tags — edit it like a document.
+// The quotes come from src/data/site.js.
+---
+
+<BaseLayout title="Our Story" description="How Helping Hands began and why it still runs.">
+  <img class="banner" src={story.bannerImage} alt={story.bannerAlt} />
+
+  <div class="split">
+    <div class="split-text">
+      <h1>Our Story</h1>
+
+      <p>
+        Kushal and Anurag&rsquo;s inspiration to start Helping Hands came in the
+        summer of 2020, when the coronavirus pandemic changed the lives of
+        students all over the world. Realizing that students would not have
+        access to traditional summer schooling and camps, Kushal and Anurag
+        realized that kids would not have much to do over the summer.
+      </p>
+
+      <p>
+        We decided to start Helping Hands, an organization that
+        offers free math and science classes, conducted online for middle and
+        high school students across the United States. We hope to serve all
+        students and grow as an organization, helping people who need it the
+        most.
+      </p>
+    </div>
+
+    <aside>
+      <h2 class="quotes-heading">What people say</h2>
+
+      <div class="quotes">
+        {testimonials.map((t) => (
+          <figure class="quote">
+            <blockquote><p>{t.quote}</p></blockquote>
+            <figcaption>
+              {t.attribution}{t.role && <span class="quote-role">{t.role}</span>}
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </aside>
+  </div>
+
+  <h2>Why we keep teaching</h2>
+
+  <div class="split">
+    <div class="split-text">
+      <!-- DRAFT — this is your motivation, so put it in your own words. -->
+      <p>
+        Teaching a concept forces you to understand it properly. You cannot hide
+        behind a formula you half-remember when a twelve-year-old asks why it
+        works. Every class makes us better at the subject, and every student who
+        says the thing finally made sense is a reason to schedule the next one.
+      </p>
+
+      <p>
+        The best sessions are the ones that go sideways. A student asks
+        something we have not thought about since we learned it ourselves, and
+        we have to work it out on the spot, in front of them. They see that
+        figuring something out is normal rather than something only teachers can
+        do. That is usually the moment a class stops being a lecture.
+      </p>
+
+      <p>
+        Some students come back for a subject they have already covered at
+        school. They are not there for the grade, because there is no grade.
+        They come because it made sense the last time and they want that again.
+        Six years in, that is still the clearest signal we have that this is
+        worth running.
+      </p>
+
+      <p>
+        None of this is a favour we are doing. We get more out of it than we put
+        in.
+      </p>
+    </div>
+
+    <div class="split-media">
+      <img src={story.teachingImage} alt={story.teachingAlt} />
+    </div>
+  </div>
+</BaseLayout>

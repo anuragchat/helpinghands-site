@@ -1,0 +1,65 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { contact } from '../data/site.js';
+---
+
+<BaseLayout title="Contact" description="Get in touch with Helping Hands.">
+  <h1>Contact</h1>
+
+  <p class="lede">
+    Looking for a seat in a class, or want to volunteer? Send us a note.
+  </p>
+
+  <div class="split">
+    <div class="split-text">
+      {contact.formEndpoint ? (
+        <form action={contact.formEndpoint} method="POST">
+          <label class="field">
+            <span>Your name</span>
+            <input type="text" name="name" required />
+          </label>
+
+          <label class="field">
+            <span>Email</span>
+            <input type="email" name="email" required />
+          </label>
+
+          <label class="field">
+            <span>What is this about?</span>
+            <select name="topic" required>
+              <option value="">Choose one</option>
+              <option>Joining a class</option>
+              <option>Volunteering as an instructor</option>
+              <option>Something else</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span>Student's grade (if joining a class)</span>
+            <input type="text" name="grade" />
+          </label>
+
+          <label class="field">
+            <span>What can we help with?</span>
+            <textarea name="message" rows="6" required></textarea>
+          </label>
+
+          <button class="button" type="submit">Send message</button>
+        </form>
+      ) : (
+        <p class="note">
+          The form is not connected yet. Create a form at formspree.io, then paste
+          its URL into <code>formEndpoint</code> in <code>src/data/site.js</code>.
+          Until then, the email address below works.
+        </p>
+      )}
+
+      <h2>Email</h2>
+      <p><a href={`mailto:${contact.email}`}>{contact.email}</a></p>
+    </div>
+
+    <div class="split-media">
+      <img src={contact.image} alt={contact.imageAlt} />
+    </div>
+  </div>
+</BaseLayout>

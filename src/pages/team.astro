@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site, team, personId } from '../data/site.js';
+
+// Everything here comes from src/data/site.js — names, roles, bios, photos.
+// `detail` is split at its first full stop so the opening phrase can be bold.
+function splitDetail(text) {
+  const at = text.indexOf('. ');
+  if (at === -1) return [text, ''];
+  return [text.slice(0, at + 1), text.slice(at + 2)];
+}
+---
+
+<BaseLayout title="Team" description="The people who teach at Helping Hands.">
+  <h1>The Helping Hands Team</h1>
+
+  {team.map((person) => {
+    const [lead, rest] = splitDetail(person.detail);
+    return (
+      <article class="person" id={personId(person.name.split(' ')[0])}>
+        <div>
+          <h2>{person.name}</h2>
+
+          <p class="person-block person-role">
+            {person.role} of {site.name}.
+          </p>
+
+          <p class="person-block person-detail">
+            <strong>{lead}</strong> {rest}
+          </p>
+
+          <p class="person-block person-bio">{person.bio}</p>
+
+          <p class="person-email">
+            Email me: <a href={`mailto:${person.email}`}>{person.email}</a>
+          </p>
+        </div>
+
+        <img src={person.photo} alt={`Portrait of ${person.name}`} />
+      </article>
+    );
+  })}
+</BaseLayout>

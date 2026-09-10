@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site, home } from '../data/site.js';
+
+// All of this page's words live in src/data/site.js under `home`.
+---
+
+<BaseLayout description={site.blurb}>
+  <section class="hero-band" style={`--hero-image: url('${home.heroImage}')`}>
+    <h1>{home.heading}</h1>
+    <p class="hero-tagline">{home.subheading}</p>
+    <a class="button-link" href={home.ctaHref}>{home.ctaLabel}</a>
+  </section>
+
+  <h2>{home.welcomeHeading}</h2>
+
+  <div class="welcome">
+    <div class="welcome-text">
+      {home.welcome.map((paragraph) => <p>{paragraph}</p>)}
+      <p class="emphasis">{home.emphasis}</p>
+    </div>
+
+    <div class="welcome-media">
+      <img src={home.welcomeImage} alt={home.welcomeAlt} />
+    </div>
+  </div>
+
+  <p class="signature">{home.signature}</p>
+</BaseLayout>

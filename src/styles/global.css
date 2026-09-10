@@ -1,0 +1,633 @@
+/* ---------------------------------------------------------------------------
+   Design tokens. Change a value here and it applies across the whole site.
+   The site runs dark: navy background, near-white text, gold for anything
+   interactive.
+   --------------------------------------------------------------------------- */
+:root {
+  --navy:      #080E27;  /* page background and header band */
+  --navy-lift: #111838;  /* form fields and anything that sits "on" the page */
+  --gold:      #C5AC64;  /* links, buttons, active nav */
+  --hero-text: #FFC13B;  /* the big hero heading. Swap this one line to retune it:
+                            #FFC13B bright amber · #FFFFFF crisp white
+                            #FF7A33 orange, matches the tagline banner
+                            #7FE3C4 mint, cold contrast against the chalkboard */
+  --rose:      #DC5169;  /* the highlight blocks on the team page */
+  --brick:     #4D1410;  /* the banner behind the hero tagline */
+  --flame:     #EC602D;  /* hero tagline text */
+
+  --ink:       #F2F2F2;  /* body text */
+  --ink-soft:  #B8BCCC;  /* secondary text */
+  --rule:      rgba(242, 242, 242, 0.18);
+
+  --measure: 38rem;
+  --gap: 1.5rem;
+
+  --font-display: 'Zilla Slab', Georgia, serif;
+  --font-body: 'Karla', system-ui, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; background: var(--navy); }
+body { overflow-x: hidden; }
+
+body {
+  margin: 0;
+  background: var(--navy);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.7;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.15;
+  margin: 0 0 0.5em;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+h1 { font-size: clamp(2rem, 5vw, 2.9rem); }
+h2 { font-size: clamp(1.5rem, 3vw, 1.9rem); margin-top: 2.75rem; }
+h3 { font-size: 1.15rem; margin-top: 1.75rem; }
+
+p, li { max-width: var(--measure); }
+p { margin: 0 0 1.4em; }
+
+a { color: var(--gold); text-underline-offset: 3px; }
+a:hover { text-decoration-thickness: 2px; }
+
+:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ---------------------------------------------------------------------------
+   Layout
+   --------------------------------------------------------------------------- */
+.wrap { width: min(86rem, 100% - 2.5rem); margin-inline: auto; }
+
+main { padding-block: 2.5rem 4.5rem; }
+
+.lede { font-size: 1.2rem; color: var(--ink-soft); max-width: 40rem; }
+
+/* ---------------------------------------------------------------------------
+   Header
+   --------------------------------------------------------------------------- */
+.masthead { background: var(--navy); }
+
+.masthead-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.75rem var(--gap);
+  padding-block: 1.5rem;
+}
+
+.wordmark {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: none;
+  margin-right: auto;
+}
+
+.wordmark span {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--ink-soft);
+}
+
+.nav { display: flex; flex-wrap: wrap; gap: 0.25rem 1.4rem; }
+
+.nav a {
+  color: var(--ink);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1rem;
+  padding-block: 0.35rem;
+  border-bottom: 2px solid transparent;
+}
+
+.nav a:hover { border-bottom-color: rgba(242, 242, 242, 0.45); }
+
+.nav a[aria-current='page'] { color: var(--gold); border-bottom-color: var(--gold); }
+
+/* ---------------------------------------------------------------------------
+   Home page hero — full-bleed photo with the heading over it
+   --------------------------------------------------------------------------- */
+.hero-band {
+  width: 100vw;
+  margin-inline: calc(50% - 50vw);
+  margin-top: -2.5rem;
+  margin-bottom: 3.5rem;
+  padding: clamp(3rem, 9vw, 6rem) 1.5rem;
+  background-color: #23302E;
+  background-image: var(--hero-image);
+  background-size: cover;
+  background-position: center;
+  text-align: center;
+}
+
+.hero-band h1 {
+  color: var(--hero-text);
+  font-size: clamp(2.4rem, 7vw, 4.5rem);
+  margin: 0 auto 1.5rem;
+  max-width: 14ch;
+  /* two shadows: a tight dark edge to lift it off the chalk writing,
+     and a wider soft one to settle it against the board */
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.85), 0 4px 22px rgba(0, 0, 0, 0.55);
+}
+
+.hero-tagline {
+  background: var(--brick);
+  color: var(--flame);
+  font-weight: 700;
+  font-style: italic;
+  font-size: clamp(1rem, 2.2vw, 1.25rem);
+  max-width: 46rem;
+  margin: 0 auto 2rem;
+  padding: 1.1rem 1.5rem;
+}
+
+.button-link {
+  display: inline-block;
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--navy);
+  background: var(--gold);
+  padding: 0.7rem 1.6rem;
+}
+
+.button-link:hover { background: #D8C07C; }
+
+/* Welcome section: text on the left, photo on the right.
+   The photo crops to whatever height the text ends up being, so the two
+   columns always finish level with each other. */
+.welcome { display: grid; gap: 2rem; }
+
+.welcome-text p { max-width: 42rem; }
+
+.welcome-media {
+  position: relative;
+  min-height: 18rem;      /* on narrow screens, where it sits below the text */
+  border: 1px solid var(--rule);
+}
+
+.welcome-media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+@media (min-width: 52rem) {
+  .welcome {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 3rem;
+    align-items: stretch;
+  }
+  /* absolutely positioned image contributes no height, so the row is sized
+     by the text and the photo fills it */
+  .welcome-media { min-height: 100%; }
+}
+
+.emphasis {
+  font-weight: 700;
+  border-left: 3px solid var(--gold);
+  padding-left: 1.1rem;
+}
+
+.signature {
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+  font-style: italic;
+  margin-top: 2.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--rule);
+}
+
+/* ---------------------------------------------------------------------------
+   Class list, ruled like a printed schedule
+   --------------------------------------------------------------------------- */
+.timetable { border-top: 2px solid var(--gold); margin-top: 1.5rem; }
+
+/* breathing room between the last class listing and whatever follows */
+.timetable + *, .timetable:last-child { margin-bottom: 0; }
+
+.timetable-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: baseline;
+  gap: 0.25rem 1rem;
+  padding-block: 0.9rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.timetable-row .subject {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.timetable-row .meta { color: var(--ink-soft); font-size: 0.9rem; }
+.timetable-row .meta a { color: var(--gold); }
+
+/* ---------------------------------------------------------------------------
+   Figures (stats)
+   --------------------------------------------------------------------------- */
+.figures {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.5rem;
+  margin: 2.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.figures li { max-width: none; }
+
+.figures .value {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  line-height: 1;
+  color: var(--gold);
+}
+
+.figures .label { color: var(--ink-soft); font-size: 0.9rem; }
+
+/* ---------------------------------------------------------------------------
+   Team
+   --------------------------------------------------------------------------- */
+.person {
+  display: grid;
+  gap: 2rem;
+  margin-bottom: 4.5rem;
+  scroll-margin-top: 2rem;   /* so linking to #anurag doesn't butt against the top */
+}
+
+.person:last-child { margin-bottom: 0; }
+
+@media (min-width: 52rem) {
+  .person {
+    grid-template-columns: minmax(0, 1.8fr) minmax(0, 1fr);
+    gap: 3.5rem;
+    align-items: start;
+  }
+}
+
+.person h2 {
+  margin: 0 0 1.5rem;
+  font-size: clamp(1.9rem, 4vw, 2.6rem);
+}
+
+/* the coloured blocks */
+.person-block {
+  color: var(--navy);
+  padding: 1.15rem 1.6rem;
+  margin-bottom: 1.75rem;
+  max-width: none;
+}
+
+.person-block:last-of-type { margin-bottom: 1.5rem; }
+
+.person-role {
+  background: var(--rose);
+  font-style: italic;
+  font-size: 1.15rem;
+}
+
+.person-detail { background: var(--rose); }
+
+.person-bio { background: var(--gold); }
+
+.person-email { color: var(--ink-soft); max-width: none; margin: 0; }
+
+.person img {
+  display: block;
+  width: 100%;
+  max-width: 21rem;      /* portrait size — raise or lower this one number */
+  height: auto;          /* the whole photo */
+  border: 1px solid var(--rule);
+}
+
+/* ---------------------------------------------------------------------------
+   Forms
+   --------------------------------------------------------------------------- */
+.field { display: block; margin-bottom: 1.25rem; max-width: 32rem; }
+.field span { display: block; font-weight: 700; margin-bottom: 0.35rem; }
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  font: inherit;
+  color: var(--ink);
+  padding: 0.65rem 0.75rem;
+  background: var(--navy-lift);
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus { border-color: var(--gold); }
+
+.button {
+  font: inherit;
+  font-weight: 700;
+  color: var(--navy);
+  background: var(--gold);
+  border: none;
+  border-radius: 2px;
+  padding: 0.7rem 1.5rem;
+  cursor: pointer;
+}
+
+.button:hover { background: #D8C07C; }
+
+.note {
+  border-left: 3px solid var(--gold);
+  padding-left: 1rem;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+}
+
+code { background: var(--navy-lift); padding: 0.1em 0.35em; border-radius: 2px; }
+
+/* ---------------------------------------------------------------------------
+   Footer
+   --------------------------------------------------------------------------- */
+.footer {
+  border-top: 1px solid var(--rule);
+  padding-block: 2rem 3.5rem;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+}
+
+.footer p { max-width: none; margin: 0.25em 0; }
+
+/* Prose pages written in Markdown */
+.prose h2 { margin-top: 2.5rem; }
+.prose ul { padding-left: 1.2rem; }
+.prose strong { color: #fff; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+/* ---------------------------------------------------------------------------
+   Page banner (Our Story)
+   --------------------------------------------------------------------------- */
+.banner {
+  display: block;
+  width: 100%;
+  max-width: 38rem;      /* keeps the whole photo, just not enormous */
+  height: auto;
+  margin: 0 auto 2.5rem;
+  border: 1px solid var(--rule);
+}
+
+/* ---------------------------------------------------------------------------
+   Testimonials
+   --------------------------------------------------------------------------- */
+.quotes { display: grid; gap: 2rem; margin-top: 1.5rem; }
+
+.quote { margin: 0; }
+
+.quote blockquote {
+  margin: 0;
+  border-left: 3px solid var(--gold);
+  padding-left: 1.25rem;
+}
+
+.quote blockquote p {
+  max-width: none;
+  font-size: 1.08rem;
+  margin-bottom: 0.9em;
+}
+
+.quote figcaption {
+  padding-left: 1.25rem;
+  color: var(--gold);
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.quote-role::before { content: ' · '; color: var(--ink-soft); font-weight: 400; }
+.quote-role { color: var(--ink-soft); font-weight: 400; }
+
+/* ---------------------------------------------------------------------------
+   Split section: text one side, a whole uncropped photo the other
+   --------------------------------------------------------------------------- */
+.split { display: grid; gap: 2rem; margin-block: 3.5rem; }
+
+.split:last-child { margin-bottom: 0; }
+
+.split-text p { max-width: 42rem; }
+.split-text > :first-child,
+.split > aside > :first-child { margin-top: 0; }
+
+.split-media img {
+  display: block;
+  width: 100%;
+  height: auto;              /* the entire photo, never cropped */
+  border: 1px solid var(--rule);
+}
+
+@media (min-width: 52rem) {
+  .split {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 3.5rem;
+    align-items: start;
+  }
+  /* use this when the two sides are different heights and centring
+     them reads better than letting one hang */
+  .split--center { align-items: center; }
+}
+
+/* sits opposite the page title, so it matches it and starts on the same line */
+.quotes-heading {
+  margin-top: 0;
+  font-size: clamp(2rem, 5vw, 2.9rem);
+}
+
+.split-text > h1 { margin-top: 0; }
+
+/* Classes page: space each level block and the sections that follow it */
+.classes-level { margin-bottom: 3rem; }
+.classes-level:last-of-type { margin-bottom: 0; }
+
+/* Support page: photo sits at the top of the right column */
+.support-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--rule);
+}
+
+.support-aside-heading { margin-top: 2rem; }
+
+.split-text > .lede { margin-bottom: 1.5rem; }
+
+/* ---------------------------------------------------------------------------
+   FAQ — click a question to open it. No JavaScript, this is a <details> element.
+   --------------------------------------------------------------------------- */
+.faq { border-top: 1px solid var(--rule); margin-bottom: 1.5rem; }
+
+.faq details { border-bottom: 1px solid var(--rule); }
+
+.faq summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 0.9rem 2rem 0.9rem 0;
+  font-weight: 700;
+  position: relative;
+}
+
+.faq summary::-webkit-details-marker { display: none; }
+
+/* the + / − indicator */
+.faq summary::after {
+  content: '+';
+  position: absolute;
+  right: 0.25rem;
+  top: 0.8rem;
+  color: var(--gold);
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
+.faq details[open] summary::after { content: '\2212'; }
+
+.faq summary:hover { color: var(--gold); }
+
+.faq details p {
+  margin: 0 0 1rem;
+  color: var(--ink-soft);
+  max-width: 42rem;
+}
+
+/* for images with a transparent background, where a frame would look wrong */
+.split-media--plain img { border: none; }
+
+/* ---------------------------------------------------------------------------
+   Practice worksheet builder
+   --------------------------------------------------------------------------- */
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0; overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap;
+}
+
+.builder fieldset {
+  border: 1px solid var(--rule);
+  padding: 1.25rem 1.4rem 0.5rem;
+  margin: 0 0 1.75rem;
+}
+
+.builder legend { font-weight: 700; padding-inline: 0.5rem; }
+
+.topic {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 0.75rem 1rem;
+  padding-block: 0.6rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.topic:last-child { border-bottom: none; }
+
+.topic-name { display: flex; align-items: center; gap: 0.6rem; cursor: pointer; }
+.topic-name input { width: 1.05rem; height: 1.05rem; accent-color: var(--gold); }
+
+.topic-example {
+  font-family: 'Courier New', monospace;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+}
+
+.topic-count input {
+  width: 4rem;
+  font: inherit;
+  color: var(--ink);
+  background: var(--navy-lift);
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  padding: 0.35rem 0.5rem;
+  text-align: center;
+}
+
+.field--inline { display: flex; align-items: center; gap: 0.75rem; max-width: none; }
+.field--inline span { margin: 0; white-space: nowrap; }
+.field--inline input { width: 8rem; }
+
+.builder-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; }
+
+.button--quiet {
+  background: transparent;
+  color: var(--gold);
+  border: 1px solid var(--gold);
+}
+
+.button--quiet:hover { background: rgba(197, 172, 100, 0.15); }
+
+/* the generated sheet */
+.sheet { margin-top: 3.5rem; border-top: 2px solid var(--gold); padding-top: 1.75rem; }
+.sheet-head h2 { margin-top: 0; }
+.sheet-meta { color: var(--ink-soft); font-size: 0.9rem; margin-bottom: 0.75rem; }
+.sheet-name { color: var(--ink-soft); }
+.sheet-rule {
+  display: inline-block;
+  width: 12rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.problems { padding-left: 1.75rem; }
+
+.problems li { margin-bottom: 1.1rem; font-size: 1.1rem; }
+
+.problems .q { font-family: 'Courier New', monospace; }
+
+.problems .work {
+  display: inline-block;
+  width: 8rem;
+  margin-left: 1rem;
+  border-bottom: 1px dotted var(--rule);
+}
+
+.answers { margin-top: 2.5rem; }
+.answers ol { padding-left: 1.75rem; }
+.answers li { font-family: 'Courier New', monospace; margin-bottom: 0.3rem; }
+
+/* ---------------------------------------------------------------------------
+   Printing a worksheet: drop the site, print black on white, save the ink
+   --------------------------------------------------------------------------- */
+@media print {
+  .masthead, .footer, .builder, .split > aside, .lede, h1 { display: none; }
+
+  body, html { background: #fff; color: #000; }
+
+  .sheet { border-top: none; margin: 0; padding: 0; }
+  .sheet-head h2 { color: #000; font-size: 18pt; }
+  .sheet-meta, .sheet-name { color: #444; }
+  .sheet-rule { border-bottom: 1px solid #000; }
+
+  .problems li { color: #000; font-size: 12pt; margin-bottom: 1.5rem; }
+  .problems .work { border-bottom: 1px dotted #999; }
+
+  .answers { page-break-before: always; }
+  .answers h2 { color: #000; }
+  .answers li { color: #000; }
+}
