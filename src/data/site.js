@@ -93,8 +93,9 @@ export const team = [
     role: 'Founder',
     detail: 'Math and computer science program founder. Lead instructor for computer science, pre-algebra, algebra 1, and physics.',
     bio:
-      'Anurag studies computer science at UC Santa Cruz. He teaches math, computer ' +
-      'science, and physics, and builds the tools the classes run on.',
+      'Anurag Chatterjee is a first-year undergraduate student at the University of ' +
+      'California, Santa Cruz, where he studies computer science. Anurag enjoys ' +
+      'teaching children math, computer science, and physics.',
     email: 'anurag.chatterjee2026@gmail.com',
     photo: '/team-anurag.jpg',
   },
@@ -103,8 +104,11 @@ export const team = [
     role: 'Co-Founder',
     detail: 'Science program founder. Lead instructor for biology, chemistry, and calculus.',
     bio:
-      'Kushal graduated from UCLA with a B.S. in neuroscience. He teaches chemistry, ' +
-      'biology, physics, and math to younger students.',
+      'Kushal Chatterjee is a first-year medical student at the Northwestern University ' +
+      'Feinberg School of Medicine in Chicago. Kushal graduated from the University of ' +
+      'California, Los Angeles in 2025, where he received a B.S. degree in Neuroscience. ' +
+      'Kushal enjoys teaching younger children about the subjects of chemistry, biology, ' +
+      'physics, and math.',
     email: 'kushal.chatterjee2022@gmail.com',
     photo: '/team-kushal.jpg',
   }

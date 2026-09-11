@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { contact } from '../data/site.js';
+import { contact, classes } from '../data/site.js';
 ---
 
 <BaseLayout title="Contact" description="Get in touch with Helping Hands.">
@@ -34,10 +34,21 @@ import { contact } from '../data/site.js';
             </select>
           </label>
 
-          <label class="field">
-            <span>Student's grade (if joining a class)</span>
-            <input type="text" name="grade" />
-          </label>
+          <div id="class-fields" hidden>
+            <label class="field">
+              <span>Which class?</span>
+              <select name="class">
+                <option value="">Choose one</option>
+                {classes.map((c) => <option>{c.name}</option>)}
+                <option>Not sure yet</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span>Student's grade</span>
+              <input type="text" name="grade" />
+            </label>
+          </div>
 
           <label class="field">
             <span>What can we help with?</span>
@@ -63,3 +74,17 @@ import { contact } from '../data/site.js';
     </div>
   </div>
 </BaseLayout>
+
+<script>
+  // Only ask which class when someone is actually joining one.
+  const topic = document.querySelector('select[name="topic"]');
+  const classFields = document.getElementById('class-fields');
+
+  if (topic && classFields) {
+    const sync = () => {
+      classFields.hidden = topic.value !== 'Joining a class';
+    };
+    topic.addEventListener('change', sync);
+    sync();
+  }
+</script>
